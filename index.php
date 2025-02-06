@@ -1,8 +1,7 @@
 <?php 
 
-echo $_GET['url'];
-/*
-if(isset($_GET['url'])) {
-    echo '<h1>retorno</h1>';
-}
-*/    
+require_once __DIR__.'/src/core/core.php';
+require_once __DIR__.'/src/router/routes.php';
+
+$core = new Core();
+$core->run($routes);
