@@ -2,10 +2,15 @@
 
 namespace Controllers;
 
-class HomeController
+use Utils\RenderView;
+
+class HomeController extends RenderView
 {
     public function index()
     {
-        echo "Home Controller";
+        $this->render('home', [
+            'title' => 'Home Page',
+            'body' => '&#128075;Welcome!'
+            ]);
     }
 }
