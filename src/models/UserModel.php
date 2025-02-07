@@ -1,6 +1,7 @@
 <?php
+namespace Models;
 
-require_once __DIR__ . '/../models/Database.php';
+use Models\Database;
 
 class UserModel extends Database {
     public function getAllUsers() {

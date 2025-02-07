@@ -1,5 +1,7 @@
 <?php 
 
+namespace Controllers;
+
 class NotFoundController
 {
     public function index()
