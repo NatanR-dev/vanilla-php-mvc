@@ -3,16 +3,16 @@
 class UserController
 {
     public function index(){
-        // Simulação de uma lista de usuários
-        $usuarios = [
-            ['id' => 1, 'username' => 'lorem'],
-            ['id' => 2, 'username' => 'ipsum'],
-            ['id' => 3, 'username' => 'dolor'],
-        ];
+        require_once __DIR__ . '/../models/UserModel.php';
+        $userModel = new UserModel();
+        $users = $userModel->getAllUsers();
 
-        // Exibe a lista de usuários
-        foreach ($usuarios as $usuario) {
-            echo "ID: " . htmlspecialchars($usuario['id']) . " - Username: " . htmlspecialchars($usuario['username']) . "<br>";
+        foreach ($users as $user) {
+            echo "ID: " . $user['id'] . "<br>";
+            echo "Nome: " . $user['name'] . "<br>";
+            echo "Username: " . $user['username'] . "<br>";
+            echo "Email: " . $user['email'] . "<br>";
+            echo "Avatar: <img src='" . $user['avatar'] . "' alt='Avatar'><br><br>";
         }
     }
 
