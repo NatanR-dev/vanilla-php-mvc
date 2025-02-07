@@ -1,9 +1,11 @@
-<?php 
+<?php
+namespace Controllers;
+
+use Models\UserModel;
 
 class UserController
 {
     public function index(){
-        require_once __DIR__ . '/../models/UserModel.php';
         $userModel = new UserModel();
         $users = $userModel->getAllUsers();
 
