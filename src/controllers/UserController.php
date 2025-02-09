@@ -11,13 +11,15 @@ class UserController extends RenderView
         $userModel = new UserModel();
         $users = $userModel->getAllUsers();
 
-        $this->render('users', ['users' => $users]);
+        $this->render('users/index', ['users' => $users]);
     }
 
     public function show($id)
     {
         $id_user = $id[0];
-        $user = new UserModel;
-        $this->render('users', ['user' => $user->getById($id_user)]);       
+        $userModel = new UserModel();
+        $user = $userModel->getById($id_user);
+
+        $this->render('users/show', ['user' => $user]);
     }
 }
