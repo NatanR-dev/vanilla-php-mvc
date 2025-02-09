@@ -1,25 +1,18 @@
 <?php
 namespace Models;
 
+use \PDO;
+use \PDOException;
+use Models\UserModel;
+
 class Database {
-    protected function connect() {
-        return [
-            [
-                'id' => 1,
-                'name' => 'João Silva',
-                'username' => 'joao123',
-                'email' => 'joao@mail.com',
-                'password' => 'senha123',
-                'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Maria Oliveira',
-                'username' => 'maria456',
-                'email' => 'maria@mail.com',
-                'password' => 'senha456',
-                'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg'
-            ],
-        ];
+    protected function getConnection() {
+        try {
+            $pdo = new PDO("mysql:dbname=app_db;host=db", "user", "user_password");
+            return $pdo;    
+        } catch (PDOException $err) {
+            echo "Connection error: " . $err->getMessage();
+            exit;
+        }
     }
 }
