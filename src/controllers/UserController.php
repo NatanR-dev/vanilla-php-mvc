@@ -1,24 +1,23 @@
 <?php
 namespace Controllers;
 
+use Utils\RenderView;
+
 use Models\UserModel;
 
-class UserController
+class UserController extends RenderView
 {
     public function index(){
         $userModel = new UserModel();
         $users = $userModel->getAllUsers();
 
-        foreach ($users as $user) {
-            echo "ID: " . $user['id'] . "<br>";
-            echo "Nome: " . $user['name'] . "<br>";
-            echo "Username: " . $user['username'] . "<br>";
-            echo "Email: " . $user['email'] . "<br>";
-            echo "Avatar: <img src='" . $user['avatar'] . "' alt='Avatar'><br><br>";
-        }
+        $this->render('users', ['users' => $users]);
     }
 
-    public function show($id){
-        echo "User Show: " .htmlspecialchars(($id));
+    public function show($id)
+    {
+        $id_user = $id[0];
+        $user = new UserModel;
+        $this->render('users', ['user' => $user->getById($id_user)]);       
     }
 }
