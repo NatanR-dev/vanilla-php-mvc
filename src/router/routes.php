@@ -8,8 +8,12 @@ class Routes
     {
         return [
             '/' => 'HomeController@index',
-            '/users' => 'UserController@Index',
-            '/users/{id}' => 'UserController@Show'
+
+            '/users' => 'UserController@index',
+            '/users/{id}' => 'UserController@show',
+                
+            '/posts' => 'PostController@index',
+            '/posts/{id}' => 'PostController@show'
         ];
     }
 }

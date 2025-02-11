@@ -3,19 +3,15 @@
 namespace Controllers;
 
 use Utils\RenderView;
-
-use Models\UserModel;
-
+use Models\HomeModel;
 
 class HomeController extends RenderView
 {
     public function index()
     {
-        $users = new UserModel();
-
-        $this->render('home', [
-            'title' => 'Home Page',
-            'users' => $users->getAllUsers()
-        ]);
+        $homeModel = new HomeModel();
+        $data = $homeModel->getHomeData();
+        
+        $this->render('home/index', $data);
     }
 }
