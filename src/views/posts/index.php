@@ -4,7 +4,7 @@
     <?php foreach ($posts as $post): ?>
         <div class="post">
             <h3>
-                <a href="/posts/<?php echo htmlspecialchars($post['id']); ?>">
+                <a href="/posts/<?php echo htmlspecialchars($post['slug']); ?>">
                     <?php echo htmlspecialchars($post['title']); ?>
                 </a>
             </h3>

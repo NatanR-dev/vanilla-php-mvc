@@ -16,27 +16,46 @@ class Core
 
         $routerFound = false;
 
-        foreach($routes as $path => $controller){
-            $pattern = '#^'.preg_replace('/{id}/', '([\w+])', $path).'$#'; // Perform a regular expression search and replace
+        foreach ($routes as $path => $controller) {
+            
+            $idPattern = preg_replace('/{id}/', '(\d+)', $path); // IDs
 
-            if(preg_match($pattern, $url, $matches)){
-                array_shift($matches);
+            $slugPattern = preg_replace('/{slug}/', '([\w\-]+)', $path); // Slugs (alphanumeric with hyphens)
+
+            // ID pattern
+            if (preg_match('#^' . $idPattern . '$#', $url, $matches)) {
+                array_shift($matches); // Removes the full match ($matches[0])
 
                 $routerFound = true;
-                
+
                 [$currentController, $action] = explode('@', $controller);
 
                 $controllerClass = "Controllers\\$currentController";
-                
+
                 $newController = new $controllerClass();
                 $newController->$action(...$matches); 
+                break; 
+            }
+
+            // Slug pattern
+            if (preg_match('#^' . $slugPattern . '$#', $url, $matches)) {
+                array_shift($matches); // ($matches[0])
+
+                $routerFound = true;
+
+                [$currentController, $action] = explode('@', $controller);
+
+                $controllerClass = "Controllers\\$currentController";
+
+                $newController = new $controllerClass();
+                $newController->$action(...$matches); 
+                break; 
             }
         }
 
-        if(!$routerFound) {
+        if (!$routerFound) {
             $notFoundcontroller = new NotFoundController();
-            $notFoundcontroller->index();
+            $notFoundcontroller->index(); 
         }
-
     }
 }
