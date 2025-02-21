@@ -13,10 +13,27 @@ class PostController extends RenderView {
         $this->render('posts/index', ['posts' => $posts]);
     }
 
-    public function show($id) {
+    public function showById($id) {
         $postModel = new PostModel();
-        $post = $postModel->getById($id[0]);
-        
-        $this->render('posts/show', ['post' => $post]);
+        $post = $postModel->getById($id);
+
+        if ($post) {
+            $this->render('posts/show', ['post' => $post]);
+        } else {
+            $notFoundController = new NotFoundController();
+            $notFoundController->index();
+        }
+    }
+
+    public function showBySlug($slug) {
+        $postModel = new PostModel();
+        $post = $postModel->getBySlug($slug);
+
+        if ($post) {
+            $this->render('posts/show', ['post' => $post]);
+        } else {
+            $notFoundController = new NotFoundController();
+            $notFoundController->index();
+        }
     }
 } 

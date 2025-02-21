@@ -13,7 +13,8 @@ class Routes
             '/users/{id}' => 'UserController@show',
                 
             '/posts' => 'PostController@index',
-            '/posts/{id}' => 'PostController@show'
+            '/posts/{id}' => 'PostController@showById',
+            '/posts/{slug}' => 'PostController@showBySlug'
         ];
     }
 }

@@ -23,4 +23,10 @@ class PostModel extends Database {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getBySlug($slug) {
+        $stmt = $this->pdo->prepare("SELECT * FROM posts WHERE slug = ?");
+        $stmt->execute([$slug]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 } 
