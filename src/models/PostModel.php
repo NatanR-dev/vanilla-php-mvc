@@ -2,15 +2,8 @@
 namespace Models;
 
 use \PDO;
-use Models\Database;
 
-class PostModel extends Database {
-
-    protected $pdo;
-
-    public function __construct() {
-        $this->pdo = $this->getConnection();
-    }
+class PostModel extends DatabaseConnection {
 
     public function getAllPosts() {
         $stmt = $this->pdo->query("SELECT * FROM posts ORDER BY created_at DESC");
@@ -28,5 +21,4 @@ class PostModel extends Database {
         $stmt->execute([$slug]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 } 

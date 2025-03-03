@@ -1,17 +1,9 @@
 <?php
 namespace Models;
 
-use Models\Database;
 use \PDO;
 
-class UserModel extends Database {
-
-    private $pdo;
-
-    public function __construct()
-    {
-        $this->pdo = $this->getConnection();
-    }
+class UserModel extends DatabaseConnection {
 
     public function getAllUsers() {
         $stmt = $this->pdo->query("SELECT * FROM users");
