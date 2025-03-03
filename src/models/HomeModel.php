@@ -1,9 +1,7 @@
 <?php
 namespace Models;
 
-use \PDO;
-
-class HomeModel extends Database
+class HomeModel extends DatabaseConnection
 {
     public function getHomeData()
     {

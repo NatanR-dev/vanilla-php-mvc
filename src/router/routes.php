@@ -14,7 +14,12 @@ class Routes
                 
             '/posts' => 'PostController@index',
             '/posts/{id}' => 'PostController@showById',
-            '/posts/{slug}' => 'PostController@showBySlug'
+            '/posts/{slug}' => 'PostController@showBySlug',
+
+            '/login' => 'AuthController@login',
+            '/auth/authenticate' => 'AuthController@authenticate',
+            '/auth/logout' => 'AuthController@logout',
+            '/dashboard' => 'DashboardController@index',
         ];
     }
 }
