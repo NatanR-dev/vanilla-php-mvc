@@ -5,5 +5,5 @@
         <?php endforeach; ?>
     </ul>
 <?php else: ?>
-    <p>Usuário não encontrado.</p>
+    <p>User not found.</p>
 <?php endif; ?> 
