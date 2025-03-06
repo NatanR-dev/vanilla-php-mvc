@@ -1,9 +1,9 @@
 <?php
 namespace Controllers;
 
-use Utils\RenderView;
-
 use Models\UserModel;
+use Utils\RenderView;
+use Middleware\RoleMiddleware;
 
 class UserController extends RenderView
 {
@@ -26,6 +26,8 @@ class UserController extends RenderView
 
     public function index()
     {
+        RoleMiddleware::handle();
+        
         $users = $this->userModel->getAllUsers();
         $this->render('users/index', ['users' => $users]);
     }
@@ -81,6 +83,8 @@ class UserController extends RenderView
 
     public function show($id)
     {
+        RoleMiddleware::handle();
+
         $id_user = $id[0];
         $userModel = new UserModel();
         $user = $userModel->getById($id_user);
