@@ -7,7 +7,7 @@
         </div>
 
         <?php 
-        // Se houver imagens, decodifica o JSON e exibe
+        // Check if the post has images and then decode the JSON 
         if (!empty($post['images'])) {
             $images = json_decode($post['images'], true);
             if (isset($images['header'])) {
