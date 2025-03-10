@@ -2,25 +2,34 @@
 
 namespace Core;
 
+use Utils\SlashUrl; 
 use Controllers\NotFoundController;
 
-class Core 
+class Core
 {
     public function run($routes)
     {
-        $url = '/';
+        $url = SlashUrl::normalizeUrl(); 
 
-        isset($_GET['url']) ? $url .= $_GET['url'] : '';
-
-        ($url != '/') ? $url = rtrim($url, '/') : $url; // Strip whitespace (or other characters) from the end of a string.
+        // var_dump($url); URL normalized
 
         $routerFound = false;
 
         foreach ($routes as $path => $controller) {
-            
-            $idPattern = preg_replace('/{id}/', '(\d+)', $path); // IDs
 
+            $idPattern = preg_replace('/{id}/', '(\d+)', $path); // IDs
+         
             $slugPattern = preg_replace('/{slug}/', '([\w\-]+)', $path); // Slugs (alphanumeric with hyphens)
+
+            if ($url === rtrim($path, '/')) {
+                // separates the controller and the method
+                [$currentController, $action] = explode('@', $controller);
+                $controllerClass = "Controllers\\$currentController";
+                $newController = new $controllerClass();
+                $newController->$action(); 
+                $routerFound = true;
+                break;
+            }
 
             // ID pattern
             if (preg_match('#^' . $idPattern . '$#', $url, $matches)) {
@@ -29,9 +38,7 @@ class Core
                 $routerFound = true;
 
                 [$currentController, $action] = explode('@', $controller);
-
                 $controllerClass = "Controllers\\$currentController";
-
                 $newController = new $controllerClass();
                 $newController->$action(...$matches); 
                 break; 
@@ -39,14 +46,12 @@ class Core
 
             // Slug pattern
             if (preg_match('#^' . $slugPattern . '$#', $url, $matches)) {
-                array_shift($matches); // ($matches[0])
+                array_shift($matches); 
 
                 $routerFound = true;
 
                 [$currentController, $action] = explode('@', $controller);
-
                 $controllerClass = "Controllers\\$currentController";
-
                 $newController = new $controllerClass();
                 $newController->$action(...$matches); 
                 break; 
@@ -54,8 +59,8 @@ class Core
         }
 
         if (!$routerFound) {
-            $notFoundcontroller = new NotFoundController();
-            $notFoundcontroller->index(); 
+            $notFoundController = new NotFoundController();
+            $notFoundController->index(); 
         }
     }
 }

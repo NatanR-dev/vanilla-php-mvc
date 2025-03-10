@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Post</title>
+    <title>Create Post - Admin</title>
 </head>
 <body>
+
+    <a href="./" style="text-decoration: none; color: blue;">&#x21A9;</a>
+    <br><br>
+
     <h1>Create Post</h1>
-    <form action="/posts/store" method="POST" enctype="multipart/form-data">
+    <form action="/admin/posts/store" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" name="title" required>
         <br>
@@ -25,7 +29,7 @@
         <label for="images">Images:</label>
         <input type="file" name="images[]" multiple>
         <br>
-        <button type="submit">Create</button>
+        <button type="submit">Add</button>
     </form>
 </body>
 </html>

@@ -27,14 +27,14 @@ class UserController extends RenderView
     public function index()
     {
         RoleMiddleware::handle();
-        
+
         $users = $this->userModel->getAllUsers();
-        $this->render('users/index', ['users' => $users]);
+        $this->render('admin/users/index', ['users' => $users]);
     }
 
     public function create()
     {
-        $this->render('users/create');
+        $this->render('admin/users/create');
     }
 
     public function store()
@@ -48,7 +48,7 @@ class UserController extends RenderView
                 $_POST['full_name'],
                 $_POST['birthday']
             );
-            header('Location: /users');
+            header('Location: /admin/users');
             exit;
         }
     }
@@ -56,7 +56,7 @@ class UserController extends RenderView
     public function edit($id)
     {
         $user = $this->userModel->getUserById($id);
-        $this->render('users/edit', ['user' => $user]);
+        $this->render('admin/users/edit', ['user' => $user]);
     }
 
     public function update($id)
@@ -65,11 +65,12 @@ class UserController extends RenderView
             $this->userModel->updateUser(
                 $id,
                 $_POST['full_name'],
+                $_POST['username'],
                 $_POST['email'],
                 $_POST['role'],
                 $_POST['birthday']
             );
-            header('Location: /users');
+            header('Location: /admin/users');
             exit;
         }
     }
@@ -77,7 +78,7 @@ class UserController extends RenderView
     public function delete($id)
     {
         $this->userModel->deleteUser($id);
-        header('Location: /users');
+        header('Location: /admin/users');
         exit;
     }
 
@@ -89,6 +90,6 @@ class UserController extends RenderView
         $userModel = new UserModel();
         $user = $userModel->getById($id_user);
 
-        $this->render('users/show', ['user' => $user]);
+        $this->render('admin/users/show', ['user' => $user]);
     }
 }

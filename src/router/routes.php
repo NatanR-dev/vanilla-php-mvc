@@ -5,7 +5,6 @@ namespace Router;
 use Controllers\UserController;
 use Controllers\PostController;
 
-// Defina suas rotas aqui
 class Routes
 {
     public static function getRoutes()
@@ -13,27 +12,30 @@ class Routes
         return [
             '/' => 'HomeController@index',
 
-            '/users' => 'UserController@index',
-            '/users/{id}' => 'UserController@show',
-            '/users/create' => 'UserController@create',
-            '/users/store' => 'UserController@store',
-            '/users/edit/{id}' => 'UserController@edit',
-            '/users/update/{id}' => 'UserController@update',
-            '/users/delete/{id}' => 'UserController@delete',
+            '/admin/users' => 'UserController@index',
+            '/admin/users/{id}' => 'UserController@show',
+            '/admin/users/create' => 'UserController@create',
+            '/admin/users/store' => 'UserController@store',
+            '/admin/users/edit/{id}' => 'UserController@edit',
+            '/admin/users/update/{id}' => 'UserController@update',
+            '/admin/users/delete/{id}' => 'UserController@delete',
 
             '/posts' => 'PostController@index',
-            '/posts/create' => 'PostController@create', 
-            '/posts/store' => 'PostController@store',
-            '/posts/edit/{id}' => 'PostController@edit',
-            '/posts/update/{id}' => 'PostController@update',
-            '/posts/delete/{id}' => 'PostController@delete',
-            '/posts/{id}' => 'PostController@showById', 
-            '/posts/{slug}' => 'PostController@showBySlug', 
+            '/posts/{id}' => 'PostController@showById',
+            '/posts/{slug}' => 'PostController@showBySlug',
+
+            '/admin/posts' => 'PostController@index',
+            '/admin/posts/create' => 'PostController@create',
+            '/admin/posts/store' => 'PostController@store',
+            '/admin/posts/edit/{id}' => 'PostController@edit',
+            '/admin/posts/update/{id}' => 'PostController@update',
+            '/admin/posts/delete/{id}' => 'PostController@delete',
+            '/admin/posts/{id}' => 'PostController@showById',
 
             '/login' => 'AuthController@login',
             '/auth/authenticate' => 'AuthController@authenticate',
             '/auth/logout' => 'AuthController@logout',
-            '/dashboard' => 'DashboardController@index',
+            '/admin/dashboard' => 'DashboardController@index',
         ];
     }
 }

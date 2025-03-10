@@ -3,14 +3,32 @@ namespace Controllers;
 
 use Utils\RenderView;
 use Models\PostModel;
+use Middleware\RoleMiddleware;
+use Utils\SlashUrl;
 
 class PostController extends RenderView {
 
     public function index() {
+        // var_dump("index method"); Debugging
+        $currentRoute = SlashUrl::normalizeUrl(); 
+        //var_dump($currentRoute); 
+
         $postModel = new PostModel();
         $posts = $postModel->getAllPosts();
-        
-        RenderView::render('posts/index', ['posts' => $posts]);
+
+        if ($currentRoute === '/posts') {
+            // public view for the front-end
+            RenderView::render('posts/index', ['posts' => $posts]);
+
+        } else if ($currentRoute === '/admin/posts') {
+            RoleMiddleware::handle(); 
+            // admin view for the back-end
+            RenderView::render('admin/posts/index', ['posts' => $posts]);
+
+        } else {
+            $notFoundController = new NotFoundController();
+            $notFoundController->index();
+        }
     }
 
     public function showById($id) {
@@ -39,11 +57,13 @@ class PostController extends RenderView {
 
     public function create()
     {
-        RenderView::render('posts/create');
+        RoleMiddleware::handle();
+        RenderView::render('admin/posts/create');
     }
 
     public function store()
     {
+        RoleMiddleware::handle();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $postModel = new PostModel();
             $postModel->createPost(
@@ -54,20 +74,28 @@ class PostController extends RenderView {
                 $_POST['author'],
                 $_FILES['images']
             );
-            header('Location: /posts');
+            header('Location: /admin/posts');
             exit;
         }
     }
 
     public function edit($id)
     {
+        RoleMiddleware::handle();
         $postModel = new PostModel();
         $post = $postModel->getPostById($id);
-        RenderView::render('posts/edit', ['post' => $post]);
+
+        if ($post) {
+            RenderView::render('admin/posts/edit', ['post' => $post]);
+        } else {
+            $notFoundController = new NotFoundController();
+            $notFoundController->index();
+        }
     }
 
     public function update($id)
     {
+        RoleMiddleware::handle();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $postModel = new PostModel();
             $postModel->updatePost(
@@ -79,16 +107,17 @@ class PostController extends RenderView {
                 $_POST['author'],
                 $_FILES['images']
             );
-            header('Location: /posts');
+            header('Location: /admin/posts');
             exit;
         }
     }
 
     public function delete($id)
     {
+        RoleMiddleware::handle();
         $postModel = new PostModel();
         $postModel->deletePost($id);
-        header('Location: /posts');
+        header('Location: /admin/posts');
         exit;
     }
 
