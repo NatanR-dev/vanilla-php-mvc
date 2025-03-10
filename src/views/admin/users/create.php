@@ -6,8 +6,11 @@
     <title>Create User</title>
 </head>
 <body>
+    <a href="./" style="text-decoration: none; color: blue;">&#x21A9;</a>
+    <br><br>
+
     <h1>Create User</h1>
-    <form action="/users/store" method="POST">
+    <form action="/admin/users/store" method="POST">
         <label for="full_name">Full Name:</label>
         <input type="text" name="full_name" required>
         

@@ -5,8 +5,12 @@
     <title>Edit Post</title>
 </head>
 <body>
+    <a href="../" style="text-decoration: none; color: blue;">&#x21A9;</a>
+    <br><br>
+
     <h1>Edit Post</h1>
-    <form action="/posts/update/<?php echo $post['id']; ?>" method="POST" enctype="multipart/form-data">
+
+    <form action="/admin/posts/update/<?php echo htmlspecialchars($post['id']); ?>" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required>
         <br>

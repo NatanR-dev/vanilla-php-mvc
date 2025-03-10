@@ -6,13 +6,16 @@
     <title>Users List</title>
 </head>
 <body>
+
+    <a href="/admin/dashboard" style="text-decoration: none; color: blue; font-size: 2rem;">&#x2302;</a>
+
     <h1>Users List</h1>
-    <a href="/users/create">Add New User</a><br></br>
+    <a href="/admin/users/create">Add New User</a><br></br>
     <table>
         <tr>
             <th>ID</th>
             <th>Username</th>
-            <th>Name Completo</th>
+            <th>Full Name</th>
             <th>Birthday</th>
             <th>Email</th>
             <th>Role</th>
@@ -27,8 +30,8 @@
             <td><?php echo htmlspecialchars($user['email']); ?></td>
             <td><?php echo htmlspecialchars($user['role']); ?></td>
             <td>
-                <a href="/users/edit/<?php echo htmlspecialchars($user['id']); ?>">Edit</a>
-                <a href="/users/delete/<?php echo htmlspecialchars($user['id']); ?>">Delete</a>
+                <a href="/admin/users/edit/<?php echo htmlspecialchars($user['id']); ?>">Edit</a>
+                <a href="/admin/users/delete/<?php echo htmlspecialchars($user['id']); ?>">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>

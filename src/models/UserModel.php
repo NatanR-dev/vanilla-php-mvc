@@ -38,10 +38,10 @@ class UserModel extends DatabaseConnection {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateUser($id, $fullName, $email, $role, $birthday)
+    public function updateUser($id, $fullName, $username, $email, $role, $birthday)
     {
-        $stmt = $this->pdo->prepare("UPDATE users SET full_name = ?, email = ?, role = ?, birthday = ? WHERE id = ?");
-        $stmt->execute([$fullName, $email, $role, $birthday, $id]);
+        $stmt = $this->pdo->prepare("UPDATE users SET full_name = ?, username = ?, email = ?, role = ?, birthday = ? WHERE id = ?");
+        $stmt->execute([$fullName, $username, $email, $role, $birthday, $id]);
     }
 
     public function deleteUser($id)

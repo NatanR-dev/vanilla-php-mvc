@@ -14,6 +14,6 @@ class DashboardController extends RenderView
             exit;
         }
 
-        $this->render('dashboard'); 
+        $this->render('admin/dashboard'); 
     }
 } 

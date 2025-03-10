@@ -4,15 +4,16 @@ namespace Controllers;
 
 use Utils\RenderView;
 use Models\AuthModel;
+use Utils\SessionAuth;
 
 class AuthController extends RenderView
 {
     public function login()
     {
-        session_start(); 
+        SessionAuth::startSession();
 
         if (isset($_SESSION['user_id'])) {
-            header('Location: /dashboard'); 
+            header('Location: /admin/dashboard'); 
             exit;
         }
 
@@ -21,7 +22,7 @@ class AuthController extends RenderView
 
     public function authenticate()
     {
-        session_start(); 
+        SessionAuth::startSession();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
@@ -35,7 +36,7 @@ class AuthController extends RenderView
                 $_SESSION['user_role'] = isset($user['role']) ? $user['role'] : 'default_role';
                 $_SESSION['username'] = $user['username']; 
 
-                header('Location: /dashboard');
+                header('Location: /admin/dashboard');
                 exit;
             } else {
                 echo "Email ou senha incorretos. Tente novamente.";
@@ -48,7 +49,7 @@ class AuthController extends RenderView
 
     public function logout()
     {
-        session_start();
+        SessionAuth::startSession();
         session_destroy(); 
         header('Location: /login'); 
         exit;
