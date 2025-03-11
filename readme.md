@@ -21,6 +21,39 @@ A lightweight, pure PHP MVC blog system for building structured, secure, and sca
 
 ---
 
+## 🗄 Database Setup 
+
+The project’s database was *developed to bootstrap a blog system in the easiest and fastest way possible.* You’ll need to follow this database structure to test it, but **feel free to adapt and expand** it as needed—this project was designed specifically for such use cases.
+
+#### Users Table
+The `users` table requires these fields:
+
+- `id`: INT (Primary Key, Auto Increment)
+- `full_name`: VARCHAR(100)
+- `username`: VARCHAR(50) (Unique)
+- `email`: VARCHAR(100) (Unique)
+- `password`: VARCHAR(255)
+- `avatar`: VARCHAR(255)
+- `birthday`: DATE
+- `role`: ENUM('admin', 'editor', 'author')
+- `created_at`: DATETIME
+- `updated_at`: DATETIME
+
+### Posts Table
+Set up a `posts` table with these fields:
+
+- `id`: INT (Primary Key, Auto Increment)
+- `title`: VARCHAR(255)
+- `description`: TEXT
+- `content`: TEXT
+- `slug`: VARCHAR(255) (Unique)
+- `author`: VARCHAR(50) (Foreign Key referencing `users(username)`)
+- `images`: JSON
+- `created_at`: TIMESTAMP
+- `updated_at`: TIMESTAMP
+
+---
+
 *Hands on!*
 
 OR
