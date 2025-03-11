@@ -1,140 +1,193 @@
 # VANILLA PHP MVC Blog System
+A lightweight, pure PHP MVC blog system for building structured, secure, and scalable web applications **without external frameworks.**
 
-A lightweight, pure PHP implementation of an MVC (Model-View-Controller) architecture blog system. This project demonstrates the power of vanilla PHP in creating a well-structured, maintainable, and secure web application without relying on external frameworks.
+---
 
-## 🚀 Features
+## 🚀 Get Started
 
-### MVC Architecture
-
-- **Models**: Handle database operations and business logic
-- **Views**: Manage the presentation layer with clean separation of concerns
-- **Controllers**: Process user requests and coordinate between Models and Views
-
-### Advanced Routing System
-
-- Custom router implementation supporting:
-  - Dynamic route parameters
-  - ID-based routing (`/posts/{id}`)
-  - SEO-friendly slug routing (`/posts/{slug}`)
-  - Automatic controller method mapping using `Controller@method` syntax
-  - Fallback handling for 404 errors
-  - URL normalization (handling trailing slashes)
-
-### Security Features
-
-- SQL injection prevention using PDO prepared statements
-- XSS protection through proper HTML escaping
-- Input validation and sanitization
-- Secure database connection handling
-
-### Database Integration
-
-- PDO-based database abstraction layer
-- MySQL support with easy configuration
-- Extensible database model system
-
-### View System
-
-- Component-based view architecture
-- View rendering with data injection
-- Layout system with partial views support
-- Dynamic content loading
-- Reusable view components
-
-### Post Management
-
-- Full CRUD operations for blog posts
-- Support for post metadata
-- Image handling with JSON storage
-- Slug-based URLs for SEO optimization
-- Chronological post ordering
-
-### Docker Integration
-
-- Complete Docker development environment
-- PHP 8.2 with Apache
-- MySQL 5.7 database
-- PHPMyAdmin for database management
-- Environment variable configuration
-- Network isolation
-
-## 🛠 Technical Implementation
-
-### Router Implementation
-
-- Dynamic route parsing using regex patterns
-- Parameter extraction for both numeric IDs and string slugs
-- Automatic controller instantiation and method calling
-- Clean URL support through Apache mod_rewrite
-
-### Controller System
-
-- Base controller with common functionality
-- Specialized controllers for specific features
-- Dynamic method calling based on route parameters
-- Error handling and 404 management
-
-### Model Layer
-
-- Base Database class for connection management
-- Model inheritance for specialized functionality
-- Query building and execution
-- Result set handling
-
-### View Rendering
-
-- Custom view renderer with data extraction
-- Template inclusion system
-- HTML escaping for security
-- Support for nested views
-
-## 🔧 Setup and Installation
-
-1. Clone the repository
-2. Copy `.env.example` to `.env` and configure your database settings
-3. Run `docker-compose up -d` to start the development environment
-4. Access the application at `http://localhost:8080`
-5. PHPMyAdmin is available at `http://localhost:3006`
-
-## 🌟 Key Technical Highlights
-
-- Pure PHP implementation without external dependencies
-- Modern PHP 8.2 features
-- Docker-based development environment
-- MVC pattern with strong Separation of Concerns (SoC)
-- Secure by default with proper input/output handling
-- Extensible and maintainable codebase
-- SEO-friendly URL structure
-- Component-based view system for reusability
-
-## 🔐 Security Considerations
-
-- All user inputs are properly sanitized
-- Database queries use prepared statements
-- HTML output is escaped to prevent XSS
-- Secure configuration handling through environment variables
-- Protected against common web vulnerabilities
-
-## 🎯 Use Case
-
-This project is perfect for:
-
-- Learning MVC architecture in pure PHP
-- Understanding routing and controller systems
-- Implementing secure database operations
-- Building component-based view systems
-- Creating production-ready applications like:
-  - Blog systems
-  - E-commerce platforms
-  - Custom MVC-based applications
-- Docker-based PHP development
-- Technical interviews and portfolio projects
+1. Clone the repository: `git clone https://github.com/NatanR-dev/vanilla-php-mvc`.
+2. Copy `.env.example` to `.env` and update your database credentials.
+3. Launch the environment: `docker-compose up -d`.
+4. Visit `http://localhost:8080` to access the app.
+5. Manage the database via PHPMyAdmin at `http://localhost:3006` (set in `.env`).
+---
 
 ## 📚 Requirements
 
-- PHP 8.2+
-- MySQL 5.7+
-- Apache with mod_rewrite enabled
-- Docker and Docker Compose (for development)
+- **PHP**: 8.2 or higher.
+- **MySQL**: 5.7 or higher.
+- **Apache**: With `mod_rewrite` enabled.
+- **Docker**: Docker and Docker Compose (optional, for development).
 
-This project demonstrates professional-grade PHP development practices without relying on frameworks, making it an excellent showcase for technical interviews and portfolio presentations.
+---
+
+*Hands on!*
+
+OR
+## 📖 Overview
+
+The **Vanilla PHP MVC Blog System** is a minimal yet powerful blog platform built from the ground up using pure PHP, following the MVC (Model-View-Controller) pattern. It’s designed for developers who want a clean, dependency-free foundation to learn, extend, or deploy real-world applications. This project not only showcases professional-grade PHP development practices but also serves as a valuable resource for the community, making it an excellent addition to your portfolio for technical interviews and recruitment opportunities.
+
+### 🎯 Why Use This?
+
+- Master MVC architecture in pure PHP.
+- Understand routing, controllers, and views without framework magic.
+- Build secure, scalable apps with full control.
+- Showcase your skills in portfolios or interviews.
+
+---
+
+## 🛠 Core Features
+
+### MVC Architecture
+
+- **Model**: Manages data and logic with PDO-based MySQL integration.
+- **View**: Renders templates with reusable components and layouts.
+- **Controller**: Handles requests and ties everything together.
+
+### Routing
+
+- Custom-built router with:
+  - Dynamic parameters (e.g., `/posts/{id}`, `/posts/{slug}`).
+  - Controller-method mapping (`Controller@method`).
+  - Public routes: `/`, `/posts`, `/posts/{slug}`, `/login`.
+  - Private routes: `/admin/dashboard`, `/admin/users` (admin-only), `/admin/posts` (authenticated).
+  - 404 handling and URL normalization.
+  
+
+All routes organized by | Path | Method | Desc:
+
+| **Route**                  | **Controller@Method**         | **Description**                     |
+|----------------------------|-------------------------------|-------------------------------------|
+| `/`                        | `HomeController@index`        | Displays the homepage              |
+| **Public Post Routes**     |                               |                                     |
+| `/posts`                   | `PostController@index`        | Lists all posts                    |
+| `/posts/{id}`              | `PostController@showById`     | Shows a post by ID                 |
+| `/posts/{slug}`            | `PostController@showBySlug`   | Shows a post by slug               |
+| **Admin User Routes**      |                               |                                     |
+| `/admin/users`             | `UserController@index`        | Lists all users (admin only)       |
+| `/admin/users/{id}`        | `UserController@show`         | Shows a user by ID (admin only)    |
+| `/admin/users/create`      | `UserController@create`       | Form to create a user (admin only) |
+| `/admin/users/store`       | `UserController@store`        | Saves a new user (admin only)      |
+| `/admin/users/edit/{id}`   | `UserController@edit`         | Form to edit a user (admin only)   |
+| `/admin/users/update/{id}` | `UserController@update`       | Updates a user (admin only)        |
+| `/admin/users/delete/{id}` | `UserController@delete`       | Deletes a user (admin only)        |
+| **Admin Post Routes**      |                               |                                     |
+| `/admin/posts`             | `PostController@index`        | Lists all posts (authenticated)    |
+| `/admin/posts/create`      | `PostController@create`       | Form to create a post              |
+| `/admin/posts/store`       | `PostController@store`        | Saves a new post                   |
+| `/admin/posts/edit/{id}`   | `PostController@edit`         | Form to edit a post                |
+| `/admin/posts/update/{id}` | `PostController@update`       | Updates a post                     |
+| `/admin/posts/delete/{id}` | `PostController@delete`       | Deletes a post                     |
+| `/admin/posts/{id}`        | `PostController@showById`     | Shows a post by ID                 |
+| **Authentication Routes**  |                               |                                     |
+| `/login`                   | `AuthController@login`        | Displays login form                |
+| `/auth/authenticate`       | `AuthController@authenticate` | Processes login                    |
+| `/auth/logout`             | `AuthController@logout`       | Logs out the user                  |
+| **Admin Dashboard**        |                               |                                     |
+| `/admin/dashboard`         | `DashboardController@index`   | Admin dashboard (authenticated)    |
+
+### Controller System
+
+- Base controller with common functionality.
+- Specialized controllers for specific features.
+- Dynamic method calling based on route parameters.
+- Error handling and 404 management.
+
+### Security
+
+- PDO prepared statements to prevent SQL injection.
+- HTML escaping for XSS protection.
+- Input sanitization and validation.
+- Role-based access control (RBAC).
+
+### Database
+
+- PDO abstraction for MySQL.
+- Configurable via `.env`.
+- Extensible models for CRUD operations.
+
+### Views
+
+- Component-based templates.
+- Dynamic data injection.
+- Support for layouts and partials.
+
+### Post Management
+
+- Full CRUD for blog posts.
+- Metadata support (e.g., date, author).
+- SEO-friendly slugs.
+- Image handling.
+
+### User Management
+
+- Login and registration.
+- Role-based permissions.
+- Admin-only user management.
+
+### 🐳 Docker Integration
+
+- Pre-configured environment:
+  - PHP 8.2 + Apache.
+  - MySQL 5.7.
+  - PHPMyAdmin.
+- Isolated network setup.
+
+---
+
+## 🔧 Technical Details
+
+### Router
+- Regex-based route parsing.
+- Parameter extraction (IDs, slugs).
+- Automatic controller invocation.
+
+### Controllers
+- Base class with shared utilities.
+- Error handling built-in.
+
+### Models
+- Centralized `Database` class.
+- Entity-specific CRUD methods.
+
+### Views
+- Secure rendering with HTML escaping.
+- Template inclusion system.
+
+---
+
+## 🌟 Highlights
+
+- Pure PHP implementation without external dependencies.
+- Full CRUD for blogs/stores.
+- Modern PHP 8.2 features.
+- Docker-based development environment.
+- MVC pattern with strong Separation of Concerns (SoC).
+- Secure by default with proper input/output handling.
+- Extensible and maintainable codebase.
+- SEO-friendly URL structure.
+- Component-based view system for reusability.
+
+---
+
+## 🔐 Security Practices
+
+- Inputs validated and sanitized.
+- Outputs escaped to block XSS.
+- Sensitive data in `.env`.
+- Protection against common threats (CSRF, SQL injection).
+
+---
+
+## 🎯 Use Cases
+
+- Learning MVC and PHP internals.
+- Building blogs, e-commerce, or custom apps.
+- Portfolio projects for technical interviews.
+
+---
+
+## ⭐ Get Involved
+
+If you find this project useful, please give it a star on GitHub, fork it to experiment with your own ideas, or contribute by submitting pull requests. Your support helps grow this resource for the community!
