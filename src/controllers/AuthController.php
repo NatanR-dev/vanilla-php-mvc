@@ -47,6 +47,16 @@ class AuthController extends RenderView
         }
     }
 
+    public static function checkAuthentication()
+    {
+        SessionAuth::startSession(); 
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /login'); 
+            exit();
+        }
+    }
+
     public function logout()
     {
         SessionAuth::startSession();

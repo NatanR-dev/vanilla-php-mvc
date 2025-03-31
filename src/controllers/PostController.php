@@ -5,8 +5,14 @@ use Utils\RenderView;
 use Models\PostModel;
 use Middleware\RoleMiddleware;
 use Utils\SlashUrl;
+use Controllers\AuthController;
 
 class PostController extends RenderView {
+
+    public function __construct()
+    {
+        AuthController::checkAuthentication();
+    }
 
     public function index() {
         // var_dump("index method"); Debugging

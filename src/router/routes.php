@@ -20,6 +20,10 @@ class Routes
             '/admin/users/update/{id}' => 'UserController@update',
             '/admin/users/delete/{id}' => 'UserController@delete',
 
+            '/admin/settings/user' => 'SettingsController@index',
+            '/admin/settings/user/edit/{id}' => 'SettingsController@edit',
+            '/admin/settings/user/update/{id}' => 'SettingsController@update',
+
             '/posts' => 'PostController@index',
             '/posts/{id}' => 'PostController@showById',
             '/posts/{slug}' => 'PostController@showBySlug',

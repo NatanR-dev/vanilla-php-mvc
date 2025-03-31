@@ -11,6 +11,7 @@
 
     <a href="/admin/users">Users</a><br>
     <a href="/admin/posts">Posts</a><br><br>
+    <a href="/admin/settings/user">Settings</a><br><br>
 
     <a href="/auth/logout">Logout</a>
 </body>
