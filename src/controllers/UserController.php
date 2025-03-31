@@ -4,6 +4,7 @@ namespace Controllers;
 use Models\UserModel;
 use Utils\RenderView;
 use Middleware\RoleMiddleware;
+use Utils\SessionAuth;
 
 class UserController extends RenderView
 {
@@ -61,18 +62,32 @@ class UserController extends RenderView
 
     public function update($id)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->userModel->updateUser(
-                $id,
-                $_POST['full_name'],
-                $_POST['username'],
-                $_POST['email'],
-                $_POST['role'],
-                $_POST['birthday']
-            );
-            header('Location: /admin/users');
-            exit;
+        SessionAuth::startSession();
+
+        if (!SessionAuth::isAuthenticated()) {
+            header('Location: /auth/login');
+            exit();
         }
+
+        $user = $this->userModel->getById($id);
+
+        $fullName = $_POST['full_name'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $birthday = $_POST['birthday'];
+
+        $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+
+        if ($_SESSION['user_role'] === 'admin' && isset($_POST['role'])) {
+            $role = $_POST['role'];
+        } else {
+            $role = $user['role'];
+        }
+
+        $this->userModel->updateUser($id, $fullName, $username, $email, $role, $birthday);
+
+        header('Location: /admin/users');
+        exit();
     }
 
     public function delete($id)
