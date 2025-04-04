@@ -23,7 +23,7 @@ A lightweight, pure PHP MVC blog system for building structured, secure, and sca
 
 ## 🗄 Database Setup 
 
-The project’s database was *developed to bootstrap a blog system in the easiest and fastest way possible.* You’ll need to follow this database structure to test it, but **feel free to adapt and expand** it as needed—this project was designed specifically for such use cases.
+The project's database was *developed to bootstrap a blog system in the easiest and fastest way possible.* You'll need to follow this database structure to test it, but **feel free to adapt and expand** it as needed—this project was designed specifically for such use cases.
 
 #### Users Table
 The `users` table requires these fields:
@@ -59,7 +59,7 @@ Set up a `posts` table with these fields:
 OR
 ## 📖 Overview
 
-The **Vanilla PHP MVC Blog System** is a minimal yet powerful blog platform built from the ground up using pure PHP, following the MVC (Model-View-Controller) pattern. It’s designed for developers who want a clean, dependency-free foundation to learn, extend, or deploy real-world applications. This project not only showcases professional-grade PHP development practices but also serves as a valuable resource for the community, making it an excellent addition to your portfolio for technical interviews and recruitment opportunities.
+The **Vanilla PHP MVC Blog System** is a minimal yet powerful blog platform built from the ground up using pure PHP, following the MVC (Model-View-Controller) pattern. It's designed for developers who want a clean, dependency-free foundation to learn, extend, or deploy real-world applications. This project not only showcases professional-grade PHP development practices but also serves as a valuable resource for the community, making it an excellent addition to your portfolio for technical interviews and recruitment opportunities.
 
 ### 🎯 Why Use This?
 
@@ -105,6 +105,10 @@ All routes organized by | Path | Method | Desc:
 | `/admin/users/edit/{id}`   | `UserController@edit`         | Form to edit a user (admin only)   |
 | `/admin/users/update/{id}` | `UserController@update`       | Updates a user (admin only)        |
 | `/admin/users/delete/{id}` | `UserController@delete`       | Deletes a user (admin only)        |
+| **Settings Routes**        |                               |                                     |
+| `/admin/settings/user`      | `SettingsController@index`    | Displays user settings              |
+| `/admin/settings/user/edit/{id}` | `SettingsController@edit` | Form to edit user settings          |
+| `/admin/settings/user/update/{id}`| `SettingsController@update` | Updates user settings               |
 | **Admin Post Routes**      |                               |                                     |
 | `/admin/posts`             | `PostController@index`        | Lists all posts (authenticated)    |
 | `/admin/posts/create`      | `PostController@create`       | Form to create a post              |
