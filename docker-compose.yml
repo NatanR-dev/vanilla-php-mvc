@@ -24,6 +24,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
+    volumes:
+      - ./src/Config/Migrations/db.sql:/docker-entrypoint-initdb.d/db.sql
     networks:
       - app-network
 
@@ -38,6 +40,8 @@ services:
       - "3006:80"
     networks:
       - app-network
+    depends_on:
+      - db  # Garante que o phpMyAdmin só inicie após o MySQL
 
 networks:
   app-network:
