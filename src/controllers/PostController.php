@@ -11,7 +11,7 @@ class PostController extends RenderView {
 
     public function __construct()
     {
-        AuthController::checkAuthentication();
+        //AuthController::checkAuthentication();
     }
 
     public function index() {
@@ -27,7 +27,8 @@ class PostController extends RenderView {
             RenderView::render('posts/index', ['posts' => $posts]);
 
         } else if ($currentRoute === '/admin/posts') {
-            RoleMiddleware::handle(); 
+            RoleMiddleware::handle();
+            AuthController::checkAuthentication(); 
             // admin view for the back-end
             RenderView::render('admin/posts/index', ['posts' => $posts]);
 
@@ -40,6 +41,11 @@ class PostController extends RenderView {
     public function showById($id) {
         $postModel = new PostModel();
         $post = $postModel->getPostById($id);
+        $currentRoute = SlashUrl::normalizeUrl();
+
+        if (preg_match('/^\/admin\/posts\/\d+$/', $currentRoute)) {
+            AuthController::checkAuthentication();
+        }
 
         if ($post) {
             RenderView::render('posts/show', ['post' => $post]);
