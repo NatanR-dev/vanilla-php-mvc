@@ -8,19 +8,18 @@ use Utils\SlashUrl;
 use Controllers\AuthController;
 
 class PostController extends RenderView {
+    private $postModel; 
 
     public function __construct()
     {
-        //AuthController::checkAuthentication();
+        $this->postModel = new PostModel();
     }
 
     public function index() {
         // var_dump("index method"); Debugging
         $currentRoute = SlashUrl::normalizeUrl(); 
         //var_dump($currentRoute); 
-
-        $postModel = new PostModel();
-        $posts = $postModel->getAllPosts();
+        $posts = $this->postModel->getAllPosts(); 
 
         if ($currentRoute === '/posts') {
             // public view for the front-end
@@ -39,8 +38,7 @@ class PostController extends RenderView {
     }
 
     public function showById($id) {
-        $postModel = new PostModel();
-        $post = $postModel->getPostById($id);
+        $post = $this->postModel->getPostById($id); 
         $currentRoute = SlashUrl::normalizeUrl();
 
         if (preg_match('/^\/admin\/posts\/\d+$/', $currentRoute)) {
@@ -56,8 +54,7 @@ class PostController extends RenderView {
     }
 
     public function showBySlug($slug) {
-        $postModel = new PostModel();
-        $post = $postModel->getPostBySlug($slug);
+        $post = $this->postModel->getPostBySlug($slug); 
 
         if ($post) {
             RenderView::render('posts/show', ['post' => $post]);
@@ -94,8 +91,7 @@ class PostController extends RenderView {
     public function edit($id)
     {
         RoleMiddleware::handle();
-        $postModel = new PostModel();
-        $post = $postModel->getPostById($id);
+        $post = $this->postModel->getPostById($id); 
 
         if ($post) {
             RenderView::render('admin/posts/edit', ['post' => $post]);
@@ -127,8 +123,7 @@ class PostController extends RenderView {
     public function delete($id)
     {
         RoleMiddleware::handle();
-        $postModel = new PostModel();
-        $postModel->deletePost($id);
+        $this->postModel->deletePost($id); // Usa a propriedade inicializada
         header('Location: /admin/posts');
         exit;
     }
