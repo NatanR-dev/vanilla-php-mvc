@@ -74,8 +74,7 @@ class PostController extends RenderView {
     {
         RoleMiddleware::handle();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $postModel = new PostModel();
-            $postModel->createPost(
+            $this->postModel->createPost(
                 $_POST['title'],
                 $_POST['description'],
                 $_POST['content'],
@@ -105,8 +104,7 @@ class PostController extends RenderView {
     {
         RoleMiddleware::handle();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $postModel = new PostModel();
-            $postModel->updatePost(
+            $this->postModel->updatePost(
                 $id,
                 $_POST['title'],
                 $_POST['description'],
@@ -123,7 +121,7 @@ class PostController extends RenderView {
     public function delete($id)
     {
         RoleMiddleware::handle();
-        $this->postModel->deletePost($id); // Usa a propriedade inicializada
+        $this->postModel->deletePost($id); 
         header('Location: /admin/posts');
         exit;
     }
